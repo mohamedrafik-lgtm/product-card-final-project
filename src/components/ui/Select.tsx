@@ -1,6 +1,7 @@
+/* eslint-disable react-refresh/only-export-components */
 import { Listbox, Transition } from "@headlessui/react";
 import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
-import { Fragment } from "react";
+import { Fragment, memo } from "react";
 import { categories } from "../../data";
 import { ICategory } from "../../interfaces";
 
@@ -29,7 +30,6 @@ const Select = ({ selected, setSelected }: IProps) => {
                 <ChevronUpDownIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
               </span>
             </Listbox.Button>
-
             <Transition
               show={open}
               as={Fragment}
@@ -59,7 +59,6 @@ const Select = ({ selected, setSelected }: IProps) => {
                             {category.name}
                           </span>
                         </div>
-
                         {selected ? (
                           <span
                             className={classNames(
@@ -83,4 +82,4 @@ const Select = ({ selected, setSelected }: IProps) => {
   );
 };
 
-export default Select;
+export default memo(Select);

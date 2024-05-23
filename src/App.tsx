@@ -1,4 +1,5 @@
-import { ChangeEvent, FormEvent, useState } from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import { ChangeEvent, FormEvent, useCallback, useState } from "react";
 import { v4 as uuid } from "uuid";
 import CircleColor from "./components/CircleColor";
 import ErrorMessage from "./components/ErrorMessage";
@@ -41,22 +42,16 @@ const App = () => {
   const closeModal = () => setIsOpen(false);
   const openModal = () => setIsOpen(true);
   const closeEditModal = () => setIsOpenEditModal(false);
-  const openEditModal = () => setIsOpenEditModal(true);
+  const openEditModal = useCallback(() => setIsOpenEditModal(true),[]);
   const closeConfirmModal = () => setIsOpenConfirmModal(false);
-  const openConfirmModal = () => setIsOpenConfirmModal(true);
+  const openConfirmModal = useCallback(() => setIsOpenConfirmModal(true),[]);
 
-  const onChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
+  const onChangeHandler = useCallback((event: ChangeEvent<HTMLInputElement>) => {
     const { value, name } = event.target;
 
-    setProduct({
-      ...product,
-      [name]: value,
-    });
-    setErrors({
-      ...errors,
-      [name]: "",
-    });
-  };
+    setProduct(prev => ({...prev ,[name]: value}));
+    setErrors(prev => ({...prev,[name]: ""}));
+  },[]);
 
   const onChangeEditHandler = (event: ChangeEvent<HTMLInputElement>) => {
     const { value, name } = event.target;
